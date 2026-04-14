@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices.Swift;
 using System.Text;
 using System.Windows;
@@ -28,6 +29,14 @@ namespace Work3
             button_sign_up.IsEnabled = false;
             SignUp SignUp = new SignUp();
             SignUp.Visibility = Visibility.Visible;
+            this.Close();
+        }
+
+        private void button_sign_in_Click(object sender, RoutedEventArgs e)
+        {
+            button_sign_in.IsEnabled = false;
+            MainWindow MainWindow = new MainWindow();
+            MainWindow.Visibility = Visibility.Visible;
             this.Close();
         }
     }
