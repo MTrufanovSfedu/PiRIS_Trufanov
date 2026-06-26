@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DbService/DbService.csproj" />
+  <Project Path="GrpcService/GrpcService.csproj" />
+</Solution>
