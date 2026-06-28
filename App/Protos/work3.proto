@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcClient";
+
+package work3;
+
+service Work3 {
+	rpc AuthUser (AuthUserRequest) returns (AuthUserReply);
+	rpc CreateUser (CreateUserRequest) returns (CreateUserReply);
+	rpc GetItem (GetItemRequest) returns (GetItemReply);
+	rpc SendItem (SendItemRequest) returns (SendItemReply);
+	rpc SendAllItems (SendAllItemsRequest) returns (SendAllItemsReply);
+}
+
+// Пользователь
+message User {
+	string UserName = 1;
+	string Password = 2;
+}
+
+message AuthUserRequest {
+	User User = 1;
+}
+message AuthUserReply {
+	int32 Reply = 1;
+}
+
+message CreateUserRequest {
+	User User = 1;
+}
+message CreateUserReply {
+	int32 Reply = 1;
+}
+
+// Элементы базы данных
+
+enum PositionType {
+	Production = 0;
+	Service = 1;
+	Bonus = 2;
+}
+
+message Item {
+	int64 Id = 1;
+	string PositionName = 2;
+	PositionType PositionType = 3;
+	int64 PositionValue = 4;
+	double PositionPrice = 5;
+	double PriceCurrency = 6;
+}
+
+message GetItemRequest {
+	Item Item = 1;
+}
+message GetItemReply {
+	int32 Reply = 1;
+}
+
+message SendItemRequest {
+	int64 Id = 1;
+}
+message SendItemReply {
+	int32 Reply = 1;
+	Item Item = 2;
+}
+
+message SendAllItemsRequest {
+	int32 Request = 1;
+}
+
+message SendAllItemsReply {
+	int32 Reply = 1;
+	repeated Item Item = 2;
+}
