@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="Авторизация" ResizeMode="NoResize" Height="200" Width="220">
     <Grid Height="180" Width="200">
-        <TextBox HorizontalAlignment="Center" Margin="0,41,0,0" VerticalAlignment="Top" Width="160.4" IsEnabled="False" Text="user"/>
+        <TextBox x:Name="Text_UserName" HorizontalAlignment="Center" Margin="0,41,0,0" VerticalAlignment="Top" Width="160.4" TextChanged="Text_UserName_TextChanged"/>
         <Label Content="Имя пользователя" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Пароль" HorizontalAlignment="Left" Margin="20,64,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,95,0,0" VerticalAlignment="Top" Width="160.4" IsEnabled="False" Text="password"/>
-        <Button x:Name="button_sign_in" Content="Войти" HorizontalAlignment="Left" Margin="108,124,0,0" VerticalAlignment="Top" Width="72.4" Click="button_sign_in_Click"/>
+        <TextBox x:Name="Text_Password" HorizontalAlignment="Center" Margin="0,95,0,0" VerticalAlignment="Top" Width="160.4" TextChanged="Text_Password_TextChanged"/>
+        <Button x:Name="button_sign_in" Content="Войти" HorizontalAlignment="Left" Margin="108,124,0,0" VerticalAlignment="Top" Width="72.4" Click="button_sign_in_Click" IsEnabled="False"/>
         <Button x:Name="button_sign_up" Content="Регистрация" HorizontalAlignment="Left" Margin="20,124,0,0" VerticalAlignment="Top" Width="72.4" Click="Button_Click"/>
 
     </Grid>

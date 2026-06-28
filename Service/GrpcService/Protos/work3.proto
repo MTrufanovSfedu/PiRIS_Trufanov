@@ -34,10 +34,16 @@ message CreateUserReply {
 
 // Элементы базы данных
 
+enum PositionType {
+	Production = 0;
+	Service = 1;
+	Bonus = 2;
+}
+
 message Item {
 	int64 Id = 1;
 	string PositionName = 2;
-	int32 PositionType = 3;
+	PositionType PositionType = 3;
 	int64 PositionValue = 4;
 	double PositionPrice = 5;
 	double PriceCurrency = 6;

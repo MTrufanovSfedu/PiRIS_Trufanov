@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Grpc.Net.Client;
+using GrpcClient;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -22,10 +24,16 @@ namespace Work3
             InitializeComponent();
         }
 
+        public SignUp(string UserName)
+        {
+            InitializeComponent();
+            textbox_username.Text = UserName;
+        }
+
         private void button_sign_in_Click(object sender, RoutedEventArgs e)
         {
             button_sign_in.IsEnabled = false;
-            Login Login = new Login();
+            Login Login = new Login(textbox_username.Text);
             Login.Visibility = Visibility.Visible;
             this.Close();
         }
@@ -63,10 +71,36 @@ namespace Work3
                 label_incorrect_password.Content = "Пароли не совпадают";
                 return;
             }
-            MessageBox.Show("Пользователь создан");
-            Login Login = new Login();
-            Login.Visibility = Visibility.Visible;
-            this.Close();
+            using var channel = GrpcChannel.ForAddress(App.ServerHost);
+            var client = new GrpcClient.Work3.Work3Client(channel);
+            try
+            {
+                CreateUserRequest request = new CreateUserRequest();
+                request.User = new User();
+                request.User.UserName = textbox_username.Text;
+                request.User.Password = textbox_password1.Text;
+                CreateUserReply reply = client.CreateUser(request);
+                if (reply != null & reply.Reply == 1)
+                {
+                    MessageBox.Show("Пользователь существует", "Ошибка");
+                }
+                if (reply != null & reply.Reply == 2)
+                {
+                    MessageBox.Show("Не удалось создать пользователя", "Ошибка");
+                }
+                if (reply != null & reply.Reply == 0)
+                {
+                    MessageBox.Show("Пользователь создан");
+                    Login Login = new Login(textbox_username.Text);
+                    Login.Visibility = Visibility.Visible;
+                    this.Close();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Потеряно соединение с " + App.ServerHost, "Ошибка");
+                this.Close();
+            }
         }
     }
 }

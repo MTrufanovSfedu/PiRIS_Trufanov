@@ -9,7 +9,7 @@ namespace Work3
     /// </summary>
     public partial class App : Application
     {
-        public static string user = "user";
+        static public string User = "";
+        static public string ServerHost = "";
     }
-
 }

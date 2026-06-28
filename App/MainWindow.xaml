@@ -50,7 +50,7 @@ HorizontalAlignment="Left" Margin="677,59,0,0"
 VerticalAlignment="Top" Height="40" Width="136" Click="bAdd_Click" />
         <Button x:Name="bUpdate" Content="Обновить БД"
 HorizontalAlignment="Left" Margin="16,121,0,0"
-VerticalAlignment="Top" Height="38" Width="136" />
+VerticalAlignment="Top" Height="38" Width="136" Click="bUpdate_Click" />
 <TextBox x:Name="tbPosName" HorizontalAlignment="Left"
 Height="22" Margin="16,82,0,0" TextWrapping="Wrap" Text=""
 VerticalAlignment="Top" Width="136"/>

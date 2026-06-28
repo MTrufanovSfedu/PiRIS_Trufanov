@@ -19,7 +19,7 @@ namespace GrpcService.Services
             if (storeUser == null)
             { 
                 reply = 1;
-                logger.LogInformation("Auth request denied for {UserName}: No such user", request.User.UserName);
+                logger.LogWarning("Auth request denied for {UserName}: No such user", request.User.UserName);
             }
 
             if (storeUser != null && storeUser.UserPassword == request.User.Password)
@@ -28,7 +28,7 @@ namespace GrpcService.Services
                 logger.LogInformation("{UserName} has logged in", request.User.UserName);
             }
 
-            if (reply == 2) logger.LogInformation("Auth request denied for {UserName}: Incorrect password", request.User.UserName);
+            if (reply == 2) logger.LogWarning("Auth request denied for {UserName}: Incorrect password", request.User.UserName);
 
             return Task.FromResult(new AuthUserReply
             {
@@ -54,10 +54,10 @@ namespace GrpcService.Services
             if (storeUser != null)
             {
                 reply = 1;
-                logger.LogInformation("Create request denied for {UserName}: Already exists", request.User.UserName);
+                logger.LogWarning("Create request denied for {UserName}: Already exists", request.User.UserName);
             }
 
-            if (reply == 2) logger.LogInformation("Create request failed for {UserName}", request.User.UserName);
+            if (reply == 2) logger.LogWarning("Create request failed for {UserName}", request.User.UserName);
 
             if (reply == 0) logger.LogInformation("{UserName} has been created", request.User.UserName);
 
@@ -79,7 +79,7 @@ namespace GrpcService.Services
                 StorePosition newPosition = new StorePosition();
                 newPosition.Id = ((int)request.Item.Id);
                 newPosition.PositionName = request.Item.PositionName;
-                newPosition.PositionType = request.Item.PositionType;
+                newPosition.PositionType = ((int)request.Item.PositionType);
                 newPosition.PositionValue = ((int)request.Item.PositionValue);
                 newPosition.PositionPrice = request.Item.PositionPrice;
                 newPosition.PriceCurrency = request.Item.PriceCurrency;
@@ -93,7 +93,7 @@ namespace GrpcService.Services
                 StorePosition newPosition = new StorePosition();
                 newPosition.Id = ((int)request.Item.Id);
                 newPosition.PositionName = request.Item.PositionName;
-                newPosition.PositionType = request.Item.PositionType;
+                newPosition.PositionType = ((int)request.Item.PositionType);
                 newPosition.PositionValue = ((int)request.Item.PositionValue);
                 newPosition.PositionPrice = request.Item.PositionPrice;
                 newPosition.PriceCurrency = request.Item.PriceCurrency;
@@ -125,14 +125,14 @@ namespace GrpcService.Services
             if (storePosition == null)
             {
                 reply = 1;
-                logger.LogInformation("Get item {Id} request failed: Item not found", request.Id);
+                logger.LogWarning("Get item {Id} request failed: Item not found", request.Id);
             }
 
             if (storePosition != null)
             {
                 item.Id = storePosition.Id;
                 item.PositionName = storePosition.PositionName;
-                item.PositionType = storePosition.PositionType;
+                item.PositionType = (GrpcService.PositionType)storePosition.PositionType;
                 item.PositionValue = storePosition.PositionValue;
                 item.PositionPrice = storePosition.PositionPrice;
                 item.PriceCurrency = storePosition.PriceCurrency;
@@ -155,7 +155,7 @@ namespace GrpcService.Services
 
             if (storePositions == null) 
             {
-                logger.LogInformation("Get all items request failed");
+                logger.LogWarning("Get all items request failed");
                 reply.Reply = 1;
             }
 
@@ -167,7 +167,7 @@ namespace GrpcService.Services
                     StorePosition item2 = storePositions.First();
                     item1.Id = item2.Id;
                     item1.PositionName = item2.PositionName;
-                    item1.PositionType = item2.PositionType;
+                    item1.PositionType = (GrpcService.PositionType)item2.PositionType;
                     item1.PositionValue = item2.PositionValue;
                     item1.PositionPrice = item2.PositionPrice;
                     item1.PriceCurrency = item2.PriceCurrency;
